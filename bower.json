@@ -1,0 +1,26 @@
+{
+  "name": "simple-checkbox",
+  "version": "1.0.0",
+  "homepage": "https://github.com/mycolorway/simple-checkbox",
+  "authors": [
+    "CJ Ting <fatelovely1128@gmail.com>"
+  ],
+  "description": "a customizable checkbox widget",
+  "main": "lib/checkbox.js",
+  "keywords": [
+    "checkbox"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "Gruntfile.coffee",
+    "package.json",
+    "README"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "simple-module": "master"
+  }
+}

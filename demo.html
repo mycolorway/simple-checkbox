@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A simple checkbox widget</title>
+	<meta charset="utf-8" />
+
+	<link media="all" rel="stylesheet" type="text/css" href="styles/checkbox.css" />
+	<style type="text/css" media="all">
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.content {
+			width: 850px;
+			margin: 0 50px;
+		}
+
+		input[type=checkbox]{
+			display: block;
+			margin: 30px 0;
+
+		}
+	</style>
+
+	<script type="text/javascript" src="vendor/bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/module.js"></script>
+	<script type="text/javascript" src="lib/checkbox.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('input').each(function(){
+				ding=simple.checkbox({el:this});
+			})
+
+		});
+	</script>
+
+</head>
+<body>
+
+<div class="content">
+
+<form>
+	<input type="checkbox">
+	<input type="checkbox">
+	<input type="checkbox">
+	<input type="checkbox">
+	<input type="checkbox">
+</form>
+
+</div>
+</body>
+</html>
