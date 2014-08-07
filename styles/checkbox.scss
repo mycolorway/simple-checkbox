@@ -1,5 +1,27 @@
 .simple-checkbox {
-  display: inline-block;
-  background: no-repeat;
+  $size:16px;
+  $gap:4px;
+  $spriteUrl:url(../image/checkbox.png);
+  $map: (
+    normal:1,
+    hover:2,
+    active:3,
+    checked:4,
+    checked-hover:5,
+    checked-active:6,
+    disable:7
+  );
 
+  width:$size;
+  height:$size;
+  background-image: $spriteUrl;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+
+  @each $status,$number in $map {
+    &.#{$status}{
+      background-position: 0px  ( -( ($gap + $size)*($number - 1) ) );
+    }
+  }
 }

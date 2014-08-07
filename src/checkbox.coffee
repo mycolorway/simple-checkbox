@@ -1,88 +1,76 @@
 class Checkbox extends Widget
 
-  #number represents the image order in the sprite
-  @status=
-    "normal":1
-    "hover":2
-    "active":3
-    "checked":4
-    "checked-hover":5
-    "checked-active":6
-    "disabled":7
-
-
   opts:
-    ##images are normal,hover,active,checked,checked-hover,checked-active,disabled
-    spriteUrl:"image/checkbox.png"
-    size:16 # single image size
-    gap:4  #px between two images in sprite
+    el:""
 
 
   _init: ->
-    @checked=false
-    @$origin=$(@opts.el)
+    @checked = false
+    @checkbox = $(@opts.el).first()
+    throw new Error "必须提供一个有效的选择符" if @checkbox.length == 0
     @render()
 
   render: ->
-    @$origin.css('display','none')
+    @checkbox.css('display','none')
 
-    @$checkbox=$('<div class="simple-checkbox"></div>').insertAfter(@$origin)
-    @$checkbox.css("background-image","url("+@opts.spriteUrl+")")
-    @$checkbox.width(@opts.size).height(@opts.size)
+    @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
+    @el.append @checkbox
 
-    @handleEvent()
+    @_bind()
 
-  handleEvent: ->
-    @$checkbox.hover \
+  _bind: ->
+    @el.hover \
       =>
         if @checked
-          @changeImage "checked-hover"
+          @changeStatus "checked-hover"
         else
-          @changeImage "hover"
+          @changeStatus "hover"
       ,
       =>
         if @checked
-          @changeImage "checked"
+          @changeStatus "checked"
         else
-          @changeImage "normal"
+          @changeStatus "normal"
 
 
-    @$checkbox.mousedown =>
+    @el.mousedown =>
       if @checked
-        @changeImage "checked-active"
+        @changeStatus "checked-active"
       else
-        @changeImage "active"
+        @changeStatus "active"
 
-    @$checkbox.mouseup =>
+    @el.mouseup =>
       if @checked
         @check false
       else
         @check true
 
-  changeImage: (s)->
-    number=Checkbox .status[s]
-    y=(@opts.size+@opts.gap)*(number-1)
-    @$checkbox.css("backgroundPosition","0px #{-y}px")
+  changeStatus: (status)->
+    @el.removeClass()
+    @el.addClass "simple-checkbox"
+    @el.addClass status
+
 
   check: (checked)->
     return @checked unless checked?
-    @checked=checked
+    @checked = checked
     if checked
-      @changeImage "checked"
-      @$checkbox.trigger "checked"
+      @changeStatus "checked"
+      @el.trigger "checked"
+      @checkbox.attr "checked","checked"
     else
-      @changeImage "normal"
-      @$checkbox.trigger "unchecked"
+      @changeStatus "normal"
+      @el.trigger "unchecked"
+      @checkbox.removeAttr "checked"
 
   destroy: ->
-    @$origin.css("display","inline-block")
-    @$checkbox.remove()
+    @checkbox.css("display","inline-block")
+    @el.remove()
 
 
 window.simple ||= {}
 
-simple.checkbox=(opts)->
-  return unless opts? and opts.el?
+simple.checkbox = (opts)->
   new Checkbox(opts)
 
 
