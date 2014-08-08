@@ -8,6 +8,7 @@ module.exports = (grunt) ->
       checkbox:
         options:
           style: 'expanded'
+          bundleExec: true
         files:
           'styles/checkbox.css': 'styles/checkbox.scss'
 

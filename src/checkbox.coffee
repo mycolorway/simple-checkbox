@@ -30,6 +30,7 @@ class Checkbox extends Widget
 
     @el.mousedown =>
       @el.addClass "pressed"
+      false
 
     @el.click =>
       @el.removeClass "pressed"
@@ -37,6 +38,7 @@ class Checkbox extends Widget
         @check false
       else
         @check true
+      false
 
   check: (checked)->
     return @checked unless checked?
