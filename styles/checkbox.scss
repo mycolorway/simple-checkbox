@@ -5,11 +5,11 @@
   $map: (
     normal:1,
     hover:2,
-    active:3,
+    pressed:3,
     checked:4,
     checked-hover:5,
-    checked-active:6,
-    disable:7
+    checked-pressed:6,
+    disabled:7
   );
 
   width:$size;
@@ -19,9 +19,29 @@
   background-repeat: no-repeat;
   background-position: 0 0;
 
-  @each $status,$number in $map {
-    &.#{$status}{
-      background-position: 0px  ( -( ($gap + $size)*($number - 1) ) );
-    }
+  &.hover{
+    background-position: 0 (-($size+$gap)*(map-get($map,"hover")-1) );
   }
+
+  &.pressed{
+    background-position: 0 (-($size+$gap)*(map-get($map,"pressed")-1) );
+  }
+
+  &.checked{
+    background-position: 0 (-($size+$gap)*(map-get($map,"checked")-1) );
+  }
+
+  &.checked.hover{
+    background-position: 0 (-($size+$gap)*(map-get($map,"checked-hover")-1) );
+  }
+
+  &.checked.pressed{
+    background-position: 0 (-($size+$gap)*(map-get($map,"checked-pressed")-1) );
+  }
+
+  &.disabled{
+    background-position: 0 (-($size+$gap)*(map-get($map,"disabled")-1) );
+  }
+
+
 }

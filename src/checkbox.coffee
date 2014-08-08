@@ -5,66 +5,53 @@ class Checkbox extends Widget
 
 
   _init: ->
-    @checked = false
     @checkbox = $(@opts.el).first()
-    throw new Error "必须提供一个有效的选择符" if @checkbox.length == 0
-    @render()
+    throw new Error "Error!Please provide a valid selector" if @checkbox.length == 0
+    @checked = @checkbox.prop "checked"
+    @_render()
 
-  render: ->
-    @checkbox.css('display','none')
+  _render: ->
+    @checkbox.hide()
 
     @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
     @el.append @checkbox
 
+    @check @checked
     @_bind()
 
   _bind: ->
     @el.hover \
       =>
-        if @checked
-          @changeStatus "checked-hover"
-        else
-          @changeStatus "hover"
+        @el.addClass "hover"
       ,
       =>
-        if @checked
-          @changeStatus "checked"
-        else
-          @changeStatus "normal"
+        @el.removeClass "hover"
 
 
     @el.mousedown =>
-      if @checked
-        @changeStatus "checked-active"
-      else
-        @changeStatus "active"
+      @el.addClass "pressed"
 
-    @el.mouseup =>
+    @el.click =>
+      @el.removeClass "pressed"
       if @checked
         @check false
       else
         @check true
 
-  changeStatus: (status)->
-    @el.removeClass()
-    @el.addClass "simple-checkbox"
-    @el.addClass status
-
-
   check: (checked)->
     return @checked unless checked?
     @checked = checked
     if checked
-      @changeStatus "checked"
+      @el.addClass "checked"
       @el.trigger "checked"
-      @checkbox.attr "checked","checked"
+      @checkbox.prop "checked",true
     else
-      @changeStatus "normal"
+      @el.removeClass "checked"
       @el.trigger "unchecked"
-      @checkbox.removeAttr "checked"
+      @checkbox.prop "checked",false
 
   destroy: ->
-    @checkbox.css("display","inline-block")
+    @checkbox.show()
     @el.remove()
 
 

@@ -6,24 +6,21 @@
   background-repeat: no-repeat;
   background-position: 0 0;
 }
-.simple-checkbox.normal {
-  background-position: 0px 0px;
-}
 .simple-checkbox.hover {
-  background-position: 0px -20px;
+  background-position: 0 -20px;
 }
-.simple-checkbox.active {
-  background-position: 0px -40px;
+.simple-checkbox.pressed {
+  background-position: 0 -40px;
 }
 .simple-checkbox.checked {
-  background-position: 0px -60px;
+  background-position: 0 -60px;
 }
-.simple-checkbox.checked-hover {
-  background-position: 0px -80px;
+.simple-checkbox.checked.hover {
+  background-position: 0 -80px;
 }
-.simple-checkbox.checked-active {
-  background-position: 0px -100px;
+.simple-checkbox.checked.pressed {
+  background-position: 0 -100px;
 }
-.simple-checkbox.disable {
-  background-position: 0px -120px;
+.simple-checkbox.disabled {
+  background-position: 0 -120px;
 }
