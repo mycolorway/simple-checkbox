@@ -41,7 +41,7 @@ class Checkbox extends Widget
       false
 
   check: (checked)->
-    return @checked unless checked?
+    return @checked if !checked? or @el.hasClass "disabled"
     @checked = checked
     if checked
       @el.addClass "checked"
@@ -55,6 +55,12 @@ class Checkbox extends Widget
   destroy: ->
     @checkbox.show()
     @el.remove()
+
+  disable: ->
+    @el.addClass "disabled"
+
+  enable: ->
+    @el.removeClass "disabled"
 
 
 window.simple ||= {}

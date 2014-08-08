@@ -9,7 +9,8 @@
     checked:4,
     checked-hover:5,
     checked-pressed:6,
-    disabled:7
+    disabled:7,
+    checked-disabled:8
   );
 
   width:$size;
@@ -41,6 +42,10 @@
 
   &.disabled{
     background-position: 0 (-($size+$gap)*(map-get($map,"disabled")-1) );
+  }
+
+  &.checked.disabled{
+    background-position: 0 (-($size+$gap)*(map-get($map,"checked-disabled")-1) );
   }
 
 

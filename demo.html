@@ -28,8 +28,9 @@
 	<script type="text/javascript" src="lib/checkbox.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			cbs=[]
 			$('input').each(function(){
-				ding=simple.checkbox({el:this});
+				cbs.push( simple.checkbox({el:this}) );
 			})
 
 		});

@@ -24,3 +24,6 @@
 .simple-checkbox.disabled {
   background-position: 0 -120px;
 }
+.simple-checkbox.checked.disabled {
+  background-position: 0 -140px;
+}
