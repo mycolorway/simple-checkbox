@@ -17,6 +17,7 @@ class Checkbox extends Widget
     @el.append @checkbox
 
     @check @checked
+    @disable() if @checkbox.prop("disabled")
     @_bind()
 
   _bind: ->
@@ -57,9 +58,11 @@ class Checkbox extends Widget
     @el.remove()
 
   disable: ->
+    @checkbox.prop "disabled",true
     @el.addClass "disabled"
 
   enable: ->
+    @checkbox.prop "disabled",false
     @el.removeClass "disabled"
 
 
