@@ -7,6 +7,7 @@ class Checkbox extends Widget
   _init: ->
     @checkbox = $(@opts.el).first()
     throw new Error "Error!Please provide a valid selector" if @checkbox.length == 0
+    return if @checkbox.data "simple-checkbox"
     @checked = @checkbox.prop "checked"
     @_render()
 
@@ -16,8 +17,11 @@ class Checkbox extends Widget
     @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
     @el.append @checkbox
 
-    @check @checked
     @disable() if @checkbox.prop("disabled")
+    @check @checked
+
+    @checkbox.data "simple-checkbox",this
+    @el.data "simple-checkbox",this
     @_bind()
 
   _bind: ->
@@ -35,26 +39,28 @@ class Checkbox extends Widget
 
     @el.click =>
       @el.removeClass "pressed"
+      return if @el.hasClass("disabled")
       if @checked
         @check false
+        @el.trigger "unchecked"
       else
         @check true
+        @el.trigger "checked"
       false
 
   check: (checked)->
-    return @checked if !checked? or @el.hasClass "disabled"
+    return @checked if !checked?
     @checked = checked
     if checked
       @el.addClass "checked"
-      @el.trigger "checked"
       @checkbox.prop "checked",true
     else
       @el.removeClass "checked"
-      @el.trigger "unchecked"
       @checkbox.prop "checked",false
 
   destroy: ->
-    @checkbox.show()
+    @checkbox.insertAfter(@el).show()
+    @checkbox.removeData "simple-checkbox"
     @el.remove()
 
   disable: ->
