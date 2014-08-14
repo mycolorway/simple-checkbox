@@ -35,10 +35,11 @@ class Checkbox extends Widget
 
     @el.mousedown =>
       @el.addClass "pressed"
+      $(document).one "mouseup",(e)=>
+        @el.removeClass "pressed"
       false
 
     @el.click =>
-      @el.removeClass "pressed"
       return if @el.hasClass("disabled")
       if @checked
         @check false
