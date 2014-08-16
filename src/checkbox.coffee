@@ -14,14 +14,16 @@ class Checkbox extends Widget
   _render: ->
     @checkbox.hide()
 
-    @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
-    @el.append @checkbox
+    @el = @checkbox.parent '.simple-checkbox'
+    if @el.length < 1
+      @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
+      @el.append @checkbox
 
     @disable() if @checkbox.prop("disabled")
     @check @checked
 
-    @checkbox.data "simple-checkbox",this
-    @el.data "simple-checkbox",this
+    @checkbox.data "simple-checkbox", @
+    @el.data "simple-checkbox", @
     @_bind()
 
   _bind: ->
