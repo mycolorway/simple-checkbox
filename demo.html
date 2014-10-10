@@ -1,54 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>A simple checkbox widget</title>
-	<meta charset="utf-8" />
+  <title>Simple Checkbox Demo</title>
+  <meta charset="utf-8"/>
 
-	<link media="all" rel="stylesheet" type="text/css" href="styles/checkbox.css" />
-	<style type="text/css" media="all">
-		body {
-			margin: 0;
-			padding: 0;
-		}
-
-		.content {
-			width: 850px;
-			margin: 0 50px;
-		}
-
-		input[type=checkbox]{
-			display: block;
-			margin: 30px 0;
-
-		}
-	</style>
-
-	<script type="text/javascript" src="vendor/bower/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="lib/module.js"></script>
-	<script type="text/javascript" src="lib/checkbox.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			cbs=[]
-			$('input').each(function(){
-				cbs.push( simple.checkbox({el:this}) );
-			})
-
-		});
-	</script>
-
+  <link media="all" rel="stylesheet" type="text/css" href="styles/checkbox.css"/>
+  <style type="text/css" media="all">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .content {
+      width: 850px;
+      margin: 0 auto;
+    }
+    input[type=checkbox] {
+      display: block;
+      margin: 30px 0;
+    }
+  </style>
 </head>
 <body>
-
 <div class="content">
-
-<form>
-	<input type="checkbox" checked>
-	<input type="checkbox" disabled>
-	<input type="checkbox" checked disabled>
-	<input type="checkbox">
-	<input type="checkbox">
-</form>
-
+  <h1>Simple Checkbox Demo</h1>
+  <form>
+    <p>选中的checkbox <input type="checkbox" checked> </p>
+    <p>禁用的checkbox <input type="checkbox" disabled></p>
+    <p>同时被禁用和选中的checkbox <input type="checkbox" checked disabled></p>
+    <p>一般的checkbox <input type="checkbox"></p>
+  </form>
 </div>
+<script src="vendor/bower/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bower/simple-module/lib/module.js"></script>
+<script type="text/javascript" src="lib/checkbox.js"></script>
+<script type="text/javascript">
+  $(function () {
+    $(document).ready(function(){
+      var cbs = [];
+      $('input').each(function () {
+        cbs.push(simple.checkbox({el: this}));
+      });
+    });
+  });
+</script>
 </body>
 </html>

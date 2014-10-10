@@ -5,15 +5,19 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'package.json'
 
     sass:
-      checkbox:
+      styles:
         options:
-          style: 'expanded'
           bundleExec: true
+          style: 'expanded'
+          loadPath: '/usr/bin/sass'
+          sourcemap: 'none'
         files:
           'styles/checkbox.css': 'styles/checkbox.scss'
 
     coffee:
-      checkbox:
+      src:
+        options:
+          bare: true
         files:
           'lib/checkbox.js': 'src/checkbox.coffee'
       spec:
@@ -35,14 +39,29 @@ module.exports = (grunt) ->
         ],
         tasks: 'jasmine:test:build'
 
+    umd:
+      all:
+        src: 'lib/checkbox.js'
+        template: 'umd.hbs'
+        amdModuleId: 'simple-checkbox'
+        objectToExport: 'checkbox'
+        globalAlias: 'checkbox'
+        deps:
+          'default': ['$', 'SimpleModule']
+          amd: ['jquery', 'simple-module']
+          cjs: ['jquery', 'simple-module']
+          global:
+            items: ['jQuery', 'SimpleModule']
+            prefix: ''
+
     jasmine:
       terminal:
         src: ['lib/checkbox.js']
         options:
           specs: 'spec/checkbox-spec.js'
           vendor: [
-            'vendor/bower_components/jquery/dist/jquery.min.js'
-            'vendor/bower_components/simple-module/lib/module.js'
+            'vendor/bower/jquery/dist/jquery.min.js'
+            'vendor/bower/simple-module/lib/module.js'
           ]
       test:
         src: ['lib/checkbox.js']
@@ -51,14 +70,15 @@ module.exports = (grunt) ->
           styles: 'styles/checkbox.css'
           specs: 'spec/checkbox-spec.js'
           vendor: [
-            'vendor/bower_components/jquery/dist/jquery.min.js'
-            'vendor/bower_components/simple-module/lib/module.js'
+            'vendor/bower/jquery/dist/jquery.min.js'
+            'vendor/bower/simple-module/lib/module.js'
           ]
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
+  grunt.loadNpmTasks 'grunt-umd'
 
-  grunt.registerTask 'default', ['sass', 'coffee', 'jasmine:test:build', 'watch']
+  grunt.registerTask 'default', ['sass', 'coffee', 'umd', 'jasmine:test:build', 'watch']
   grunt.registerTask 'test', ['sass', 'coffee', 'jasmine:terminal']

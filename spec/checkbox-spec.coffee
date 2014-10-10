@@ -2,90 +2,64 @@ describe "checkbox", ->
 
   html='<div class="content">
           <form>
-            <input type="checkbox" id="cb" />
+            <input type="checkbox" id="checkbox" />
           </form>
         </div>'
   $(html).appendTo "body"
 
   opts=
-    el:"#cb"
-    spriteUrl:"../image/checkbox.png"
+    el:"#checkbox"
 
 
 
   beforeEach ->
-    $('form div').remove()
-    $('#cb').css("display","inline-block")
+    $('.content').remove()
+    $(html).appendTo "body"
+    $('#checkbox').css("display","inline-block")
 
-  it "should see checkbox div and hide origin element if everything is ok", ->
+  it "should let input be in div.simple-checkbox when init", ->
+    simple.checkbox opts
+    expect($("div.simple-checkbox").length).toBe(1)
+    expect($('#checkbox').parent().hasClass('simple-checkbox')).toBe(true)
+    expect($('#checkbox').css('display')).toBe("none")
+
+
+  it "should throw an exception when opts is not provided", ->
+    testException = ->
+      simple.checkbox()
+    expect(testException).toThrow()
+
+  it "should change class, when different function invoke", ->
     checkbox = simple.checkbox opts
-    expect($('#cb').next("div.simple-checkbox").length).toBe(1)
-    expect($('#cb').css('display')).toBe("none")
+    checkbox.check true
+    expect($('#checkbox').parent().hasClass('checked')).toBe(true)
 
+    checkbox.check false
+    expect($('#checkbox').parent().hasClass('checked')).toBe(false)
 
-  it "should do nothing if without opts.el", ->
-    simple.checkbox()
-    expect($('.simple-checkbox').length).toBe(0)
+    checkbox.disable()
+    expect($('#checkbox').parent().hasClass('disabled')).toBe(true)
 
+    checkbox.enable()
+    expect($('#checkbox').parent().hasClass('disabled')).toBe(false)
 
+  it "should change class, then different event triggered", ->
+    checkbox = simple.checkbox opts
 
-  it "shoudl change background image position when in different states", ->
-    checkbox=simple.checkbox opts
-    checkbox.check false #chagne position from "0% 0%" to "0px 0px"
+    $('.simple-checkbox').trigger "click"
+    expect($('#checkbox').parent().hasClass('checked')).toBe(true)
 
-    normal=$('.simple-checkbox').css('backgroundPosition')
-
-    $('.simple-checkbox').trigger "mouseenter"
-    hover=$('.simple-checkbox').css('backgroundPosition')
-    expect(hover).not.toBe(normal)
-
-
-    $('.simple-checkbox').trigger "mouseleave"
-    normal2=$('.simple-checkbox').css('backgroundPosition')
-    expect(normal2).toBe(normal)
+    $('.simple-checkbox').trigger "mouseover"
+    expect($('#checkbox').parent().hasClass('hover')).toBe(true)
 
     $('.simple-checkbox').trigger "mousedown"
-    clicked=$('.simple-checkbox').css('backgroundPosition')
-    expect(clicked).not.toBe(normal)
+    expect($('#checkbox').parent().hasClass('pressed')).toBe(true)
 
-    $('.simple-checkbox').trigger "mouseup"
-    checked=$('.simple-checkbox').css('backgroundPosition')
-    expect(checked).not.toBe(normal)
-
-
-  it "should manipulate check state by calling check", ->
-    checkbox=simple.checkbox opts
-    expect(checkbox.check()).toBe(false)
-
-    checkbox.check true
-    expect(checkbox.check()).toBe(true)
-
-    checkbox.check false
-    expect(checkbox.check()).toBe(false)
-
-
-  it "shoudl trigger checked and unchecked event when checked and unchecked", ->
-    a=1
-    checkbox=simple.checkbox opts
-    $('.simple-checkbox').on "checked",->
-      a=10
-    checkbox.check true
-    expect(a).toBe(10)
-
-    $('.simple-checkbox').on "unchecked",->
-      a=1
-    checkbox.check false
-    expect(a).toBe(1)
-
-  it "should remove simple checkbox and show origin checkbox after calling destroy", ->
-    checkbox=simple.checkbox opts
+  it "should be destroyed when invoke destroy method", ->
+    checkbox = simple.checkbox opts
     checkbox.destroy()
     expect($('.simple-checkbox').length).toBe(0)
-    expect($('#cb').css("display")).toBe("inline-block")
-
-
-
-
+    expect($('#checkbox').length).toBe(1)
 
 
 

@@ -1,8 +1,7 @@
-class Checkbox extends Widget
+class Checkbox extends SimpleModule
 
   opts:
     el:""
-
 
   _init: ->
     @checkbox = $(@opts.el).first()
@@ -78,7 +77,7 @@ class Checkbox extends Widget
 window.simple ||= {}
 
 simple.checkbox = (opts)->
-  new Checkbox(opts)
+  new Checkbox opts
 
 
 

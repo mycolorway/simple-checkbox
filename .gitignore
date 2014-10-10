@@ -5,6 +5,3 @@ node_modules
 .bundle
 .grunt
 vendor
-Gemfile.lock
-
-
