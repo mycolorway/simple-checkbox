@@ -30,7 +30,7 @@ module.exports = (grunt) ->
         tasks: ['sass']
       scripts:
         files: ['src/*.coffee', 'spec/*.coffee']
-        tasks: ['coffee']
+        tasks: ['coffee', 'umd']
       jasmine:
         files: [
           'styles/checkbox.css'
