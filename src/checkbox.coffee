@@ -73,11 +73,8 @@ class Checkbox extends SimpleModule
     @checkbox.prop "disabled",false
     @el.removeClass "disabled"
 
-
-window.simple ||= {}
-
-simple.checkbox = (opts)->
-  new Checkbox opts
+checkbox = (opts)->
+  new Checkbox(opts)
 
 
 
