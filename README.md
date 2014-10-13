@@ -1,22 +1,57 @@
 # Simple Checkbox
 
-Simple Checkbox 是一个继承自[Simple Module](https://github.com/mycolorway/simple-module)的组件，同时依赖于JQuery。
+一个简单的Checkbox组件。
 
-#### 初始化
-通过`simple.checkbox(opts)`来初始化checkbox组件，其中
+依赖项：
 
-`opts ＝ {
-  el: [String]
-}`
+- JQuery 2.0+
+- [Simple Module](https://github.com/mycolorway/simple-module)
 
-el是一个字符串，为需要初始化的input的selector, 同时这个函数返回一个Checkbox对象。
+### 使用方法
+首先，需要在页面里引用相关脚本以及css
 
-#### Checkbox对象方法
+```html
+<link media="all" rel="stylesheet" type="text/css" href="path/to/checkbox.css" />
+<script type="text/javascript" src="path/to/jquery.min.js"></script>
+<script type="text/javascript" src="path/to/module.js"></script>
+<script type="text/javascript" src="path/to/checkbox.js"></script>
 
-`check([Boolean])` 设定checkbox的与否选中
+```
 
-`disable()` 禁用Checkbox
+通过checkbox方法，实例化Checkbox对象
 
-`enable()` 启用Checkbox
+```
+<input type="checkbox" id="checkbox">
 
-`destroy()` 撤销对input进行的任何修改
+
+simple.checkbox({
+  el: '#checkbox'
+});
+
+```
+
+### API 文档
+
+####初始化选项
+
+__el__
+
+checkbox的选择器，必选
+
+#### 方法
+
+__check(checked)__ Boolean 
+
+控制checkbox选中与否
+
+__disable()__ 
+
+禁用这个checkbox
+
+__enable__
+
+启用这个checkbox
+
+__destroy()__
+
+销毁checkbox对象，还原初始环境
