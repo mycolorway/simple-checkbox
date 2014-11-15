@@ -1,52 +1,52 @@
+$size: 16px;
+$bd-color: #0f9d58;
+
 .simple-checkbox {
-  $size:16px;
-  $gap:4px;
-  $spriteUrl:url(../image/checkbox.png);
-  $map: (
-    normal:1,
-    hover:2,
-    pressed:3,
-    checked:4,
-    checked-hover:5,
-    checked-pressed:6,
-    disabled:7,
-    checked-disabled:8
-  );
-
-  width:$size;
-  height:$size;
-  background-image: $spriteUrl;
   display: inline-block;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-
-  &.hover{
-    background-position: 0 (-($size+$gap)*(map-get($map,"hover")-1) );
-  }
-
-  &.pressed{
-    background-position: 0 (-($size+$gap)*(map-get($map,"pressed")-1) );
-  }
-
-  &.checked{
-    background-position: 0 (-($size+$gap)*(map-get($map,"checked")-1) );
-  }
-
-  &.checked.hover{
-    background-position: 0 (-($size+$gap)*(map-get($map,"checked-hover")-1) );
-  }
-
-  &.checked.pressed{
-    background-position: 0 (-($size+$gap)*(map-get($map,"checked-pressed")-1) );
-  }
-
-  &.disabled{
-    background-position: 0 (-($size+$gap)*(map-get($map,"disabled")-1) );
-  }
-
-  &.checked.disabled{
-    background-position: 0 (-($size+$gap)*(map-get($map,"checked-disabled")-1) );
-  }
-
+  font-size: $size;
+  width: $size;
+  height: $size;
 
 }
+
+.checkbox-container  {
+  font-size: inherit;
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  border: 0.15em solid #5a5a5a;
+  border-radius: 25%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  z-index: 2;
+
+  .hover & {
+    background-color: #eeeeee;
+  }
+
+  .disabled & {
+    background-color: #e1e1e1;
+  }
+}
+.checkbox-tick {
+  .checked & {
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top: 0;
+    left: 25%;
+    width: 35%;
+    height: 70%;
+    border-right: 0.18em solid #0f9d58;
+    border-bottom: 0.18em solid #0f9d58;
+    z-index: 3;
+  }
+
+  .disabled.checked & {
+    border-color: #666666;
+  }
+}
+.checkbox-input {
+  display: none;
+}
+

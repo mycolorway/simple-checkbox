@@ -38,6 +38,10 @@ __el__
 
 checkbox的选择器，必选
 
+__size__
+
+checkbox的大小，如果留空，则为默认的16px
+
 #### 方法
 
 __check(checked)__ Boolean 

@@ -2,6 +2,15 @@ class Checkbox extends SimpleModule
 
   opts:
     el:""
+    size: null
+
+  _tpl: '''
+  <div class="simple-checkbox">
+    <div class="checkbox-container">
+      <div class="checkbox-tick"></div>
+    </div>
+  </div>
+  '''
 
   _init: ->
     @checkbox = $(@opts.el).first()
@@ -15,8 +24,14 @@ class Checkbox extends SimpleModule
 
     @el = @checkbox.parent '.simple-checkbox'
     if @el.length < 1
-      @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
+      @el = $(@_tpl).insertAfter @checkbox
       @el.append @checkbox
+      @checkbox.addClass 'checkbox-input'
+
+      if @opts.size
+        @el.css('height', @opts.size + 'px')
+        .css('width', @opts.size + 'px')
+        .css('font-size', @opts.size + 'px')
 
     @disable() if @checkbox.prop("disabled")
     @check @checked
