@@ -42,6 +42,10 @@ __size__
 
 checkbox的大小，如果留空，则为默认的16px
 
+__animation__
+
+是否在点击时发生动画效果，默认为false
+
 #### 方法
 
 __check(checked)__ Boolean 

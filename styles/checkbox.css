@@ -14,7 +14,6 @@
   border-radius: 25%;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  z-index: 2;
 }
 .hover .checkbox-container {
   background-color: #eeeeee;
@@ -33,7 +32,6 @@
   height: 70%;
   border-right: 0.18em solid #0f9d58;
   border-bottom: 0.18em solid #0f9d58;
-  z-index: 3;
 }
 .disabled.checked .checkbox-tick {
   border-color: #666666;
@@ -41,4 +39,49 @@
 
 .checkbox-input {
   display: none;
+}
+
+.checkbox-ripple {
+  display: none;
+  z-index: -1;
+}
+.show .checkbox-ripple {
+  display: block;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  position: relative;
+  border-radius: 50%;
+}
+.animate .checkbox-ripple {
+  animation: animation 0.5s;
+  -webkit-animation: animation 0.5s;
+}
+@keyframes animation {
+  0% {
+    transform: scale(1, 1);
+    background-color: #ffffff;
+  }
+  50% {
+    transform: scale(2.5, 2.5);
+    background-color: #e3e3e3;
+  }
+  100% {
+    transform: scale(2.5, 2.5);
+    background-color: #ffffff;
+  }
+}
+@-webkit-keyframes animation {
+  0% {
+    transform: scale(1, 1);
+    background-color: #ffffff;
+  }
+  50% {
+    transform: scale(2.5, 2.5);
+    background-color: #e3e3e3;
+  }
+  100% {
+    transform: scale(2.5, 2.5);
+    background-color: #ffffff;
+  }
 }

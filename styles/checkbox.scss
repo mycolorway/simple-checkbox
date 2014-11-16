@@ -1,5 +1,8 @@
 $size: 16px;
-$bd-color: #0f9d58;
+$border-color: #5a5a5a;
+$tick-color: #0f9d58;
+$hover-color: #eeeeee;
+$disabled-color: #e1e1e1;
 
 .simple-checkbox {
   display: inline-block;
@@ -14,18 +17,17 @@ $bd-color: #0f9d58;
   width: inherit;
   height: inherit;
   cursor: pointer;
-  border: 0.15em solid #5a5a5a;
+  border: 0.15em solid $border-color;
   border-radius: 25%;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  z-index: 2;
 
   .hover & {
-    background-color: #eeeeee;
+    background-color: $hover-color;
   }
 
   .disabled & {
-    background-color: #e1e1e1;
+    background-color: $disabled-color;
   }
 }
 .checkbox-tick {
@@ -37,9 +39,8 @@ $bd-color: #0f9d58;
     left: 25%;
     width: 35%;
     height: 70%;
-    border-right: 0.18em solid #0f9d58;
-    border-bottom: 0.18em solid #0f9d58;
-    z-index: 3;
+    border-right: 0.18em solid $tick-color;
+    border-bottom: 0.18em solid $tick-color;
   }
 
   .disabled.checked & {
@@ -48,5 +49,54 @@ $bd-color: #0f9d58;
 }
 .checkbox-input {
   display: none;
+}
+
+.checkbox-ripple {
+  display: none;
+  z-index: -1;
+
+  .show & {
+    display: block;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    position: relative;
+    border-radius: 50%;
+  }
+
+  .animate & {
+    animation: animation 0.5s;
+    -webkit-animation: animation 0.5s;
+  }
+
+  @keyframes animation {
+    0% {
+      transform: scale(1, 1);
+      background-color: #ffffff;
+    }
+    50% {
+      transform: scale(2.5, 2.5);
+      background-color: #e3e3e3;
+    }
+    100% {
+      transform: scale(2.5, 2.5);
+      background-color: #ffffff;
+    }
+  }
+
+  @-webkit-keyframes animation {
+    0% {
+      transform: scale(1, 1);
+      background-color: #ffffff;
+    }
+    50% {
+      transform: scale(2.5, 2.5);
+      background-color: #e3e3e3;
+    }
+    100% {
+      transform: scale(2.5, 2.5);
+      background-color: #ffffff;
+    }
+  }
 }
 

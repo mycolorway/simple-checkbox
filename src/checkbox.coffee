@@ -3,11 +3,13 @@ class Checkbox extends SimpleModule
   opts:
     el:""
     size: null
+    animation: false
 
   _tpl: '''
   <div class="simple-checkbox">
     <div class="checkbox-container">
       <div class="checkbox-tick"></div>
+      <div class="checkbox-ripple"></div>
     </div>
   </div>
   '''
@@ -57,6 +59,7 @@ class Checkbox extends SimpleModule
 
     @el.click =>
       return if @el.hasClass("disabled")
+      @_animate() if @opts.animation
       if @checked
         @check false
         @el.trigger "unchecked"
@@ -64,6 +67,19 @@ class Checkbox extends SimpleModule
         @check true
         @el.trigger "checked"
       false
+
+  _animate: ->
+    if @el.hasClass('show')
+      setTimeout =>
+        @el.removeClass('show animate')
+      , 0
+
+    @el.addClass('show')
+    setTimeout =>
+      @el.addClass('animate')
+    0
+    @el.on 'animationend', =>
+      @el.removeClass('show animate')
 
   check: (checked)->
     return @checked if !checked?

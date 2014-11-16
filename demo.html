@@ -29,6 +29,7 @@
     <p>同时被禁用和选中的checkbox <input type="checkbox" checked disabled></p>
     <p>一般的checkbox <input type="checkbox"></p>
     <p>size为25px的checkbox <input id="bigger" type="checkbox"></p>
+    <p>有动画的checkbox <input id="animation" type="checkbox"></p>
   </form>
 </div>
 <script src="vendor/bower/jquery/dist/jquery.min.js"></script>
@@ -37,12 +38,12 @@
 <script type="text/javascript">
   $(function () {
     $(document).ready(function(){
-      $('input:not(#bigger)').each(function () {
+      $('input:not(#bigger):not(#animation)').each(function () {
         simple.checkbox({el: this});
       });
 
       simple.checkbox({el: $('#bigger'), size: 25});
-
+      simple.checkbox({el: $('#animation'), size: 25, animation: true});
     });
   });
 </script>
