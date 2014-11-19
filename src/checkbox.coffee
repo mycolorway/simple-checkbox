@@ -8,11 +8,14 @@ class Checkbox extends SimpleModule
   _tpl: '''
   <div class="simple-checkbox">
     <div class="checkbox-container">
-      <div class="checkbox-tick"></div>
-      <div class="checkbox-ripple"></div>
+      <div class="checkbox-tick">
+        <i class="fa fa-check"></i>
+      </div>
     </div>
   </div>
   '''
+
+  _animationTpl: '<div class="checkbox-ripple"></div>'
 
   _init: ->
     @checkbox = $(@opts.el).first()
@@ -35,6 +38,9 @@ class Checkbox extends SimpleModule
         .css('width', @opts.size + 'px')
         .css('font-size', @opts.size + 'px')
 
+    if @opts.animation
+      $(@_animationTpl).insertAfter @el.find('.checkbox-tick')
+
     @disable() if @checkbox.prop("disabled")
     @check @checked
 
@@ -53,13 +59,12 @@ class Checkbox extends SimpleModule
 
     @el.mousedown =>
       @el.addClass "pressed"
+      @_startAnimate() if @opts.animation
       $(document).one "mouseup",(e)=>
         @el.removeClass "pressed"
       false
 
     @el.click =>
-      return if @el.hasClass("disabled")
-      @_animate() if @opts.animation
       if @checked
         @check false
         @el.trigger "unchecked"
@@ -68,18 +73,27 @@ class Checkbox extends SimpleModule
         @el.trigger "checked"
       false
 
-  _animate: ->
-    if @el.hasClass('show')
-      setTimeout =>
-        @el.removeClass('show animate')
-      , 0
+  _startAnimate: ->
+    return if @el.hasClass 'animation-start animation-checked-start animation-end'
+    if @checked
+      @el.addClass 'animation-start'
+    else
+      @el.addClass 'animation-checked-start'
 
-    @el.addClass('show')
+    @el.one 'transitionend', =>
+      if @el.hasClass('pressed')
+        @el.one 'mouseup', =>
+          @_endAnimate()
+        return
+      @_endAnimate()
+
+
+  _endAnimate: =>
+    @el.addClass('animation-end')
     setTimeout =>
-      @el.addClass('animate')
-    0
-    @el.on 'animationend', =>
-      @el.removeClass('show animate')
+      @el.one 'transitionend', =>
+        @el.removeClass('animation-start animation-end animation-checked-start')
+    , 0
 
   check: (checked)->
     return @checked if !checked?

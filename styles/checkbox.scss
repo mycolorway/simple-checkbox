@@ -1,7 +1,8 @@
 $size: 16px;
 $border-color: #5a5a5a;
-$tick-color: #0f9d58;
-$hover-color: #eeeeee;
+$checked-color: #3eb438;
+$tick-color: #eaeaea;
+$hover-color: #efefef;
 $disabled-color: #e1e1e1;
 
 .simple-checkbox {
@@ -17,10 +18,11 @@ $disabled-color: #e1e1e1;
   width: inherit;
   height: inherit;
   cursor: pointer;
-  border: 0.15em solid $border-color;
+  border: 0.10em solid $border-color;
   border-radius: 25%;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 
   .hover & {
     background-color: $hover-color;
@@ -28,23 +30,24 @@ $disabled-color: #e1e1e1;
 
   .disabled & {
     background-color: $disabled-color;
+    cursor: no-drop;
+  }
+
+  .checked & {
+    background-color: $checked-color;
+    border-color: $checked-color;
   }
 }
 .checkbox-tick {
+  display: block;
+  visibility: hidden;
+  font-size: 0.85em;
+  position: relative;
+  height: 100%;
+  width: 100%;
   .checked & {
-    position: absolute;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    top: 0;
-    left: 25%;
-    width: 35%;
-    height: 70%;
-    border-right: 0.18em solid $tick-color;
-    border-bottom: 0.18em solid $tick-color;
-  }
-
-  .disabled.checked & {
-    border-color: #666666;
+    visibility: visible;
+    color: $tick-color;
   }
 }
 .checkbox-input {
@@ -52,51 +55,29 @@ $disabled-color: #e1e1e1;
 }
 
 .checkbox-ripple {
-  display: none;
   z-index: -1;
+  top: -100%;
+  display: block;
+  height: 100%;
+  width: 100%;
+  opacity: 0.4;
+  position: relative;
+  border-radius: 50%;
 
-  .show & {
-    display: block;
-    height: 100%;
-    width: 100%;
-    opacity: 0.5;
-    position: relative;
-    border-radius: 50%;
+  transition: transform 0.3s,  background-color 0.3s;
+
+  .animation-start & {
+    transform: scale(2.5, 2.5);
+    background-color: #d0d0d0;
   }
 
-  .animate & {
-    animation: animation 0.5s;
-    -webkit-animation: animation 0.5s;
+  .animation-checked-start & {
+    transform: scale(2.5, 2.5);
+    background-color: #2bbd00;
   }
 
-  @keyframes animation {
-    0% {
-      transform: scale(1, 1);
-      background-color: #ffffff;
-    }
-    50% {
-      transform: scale(2.5, 2.5);
-      background-color: #e3e3e3;
-    }
-    100% {
-      transform: scale(2.5, 2.5);
-      background-color: #ffffff;
-    }
-  }
-
-  @-webkit-keyframes animation {
-    0% {
-      transform: scale(1, 1);
-      background-color: #ffffff;
-    }
-    50% {
-      transform: scale(2.5, 2.5);
-      background-color: #e3e3e3;
-    }
-    100% {
-      transform: scale(2.5, 2.5);
-      background-color: #ffffff;
-    }
+  .animation-end & {
+    background-color: #ffffff;
   }
 }
 
