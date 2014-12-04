@@ -1,8 +1,8 @@
 .simple-checkbox {
   display: inline-block;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .checkbox-container {
@@ -10,11 +10,15 @@
   width: inherit;
   height: inherit;
   cursor: pointer;
-  border: 0.1em solid #5a5a5a;
-  border-radius: 25%;
+  border: 0.12em solid;
+  border-color: rgba(0, 0, 0, 0.54);
+  border-radius: 0.12em;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  transition: 300ms;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .hover .checkbox-container {
   background-color: #efefef;
@@ -24,21 +28,30 @@
   cursor: no-drop;
 }
 .checked .checkbox-container {
-  background-color: #3eb438;
-  border-color: #3eb438;
+  background-color: rgba(43, 175, 43, 0.87);
+  border: none;
 }
 
 .checkbox-tick {
   display: block;
   visibility: hidden;
-  font-size: 0.85em;
-  position: relative;
-  height: 100%;
-  width: 100%;
+  font-size: 0.8em;
+  position: absolute;
+  width: inherit;
+  height: inherit;
 }
 .checked .checkbox-tick {
   visibility: visible;
-  color: #eaeaea;
+  position: absolute;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 5%;
+  left: 32%;
+  width: 25%;
+  height: 60%;
+  border-right: 0.18em solid #eeeeee;
+  border-bottom: 0.18em solid #eeeeee;
+  z-index: 3;
 }
 
 .checkbox-input {
@@ -47,14 +60,14 @@
 
 .checkbox-ripple {
   z-index: -1;
-  top: -100%;
   display: block;
   height: 100%;
   width: 100%;
+  top: -100%;
   opacity: 0.4;
   position: relative;
   border-radius: 50%;
-  transition: transform 0.3s,  background-color 0.3s;
+  transition: transform 300ms,  background-color 300ms;
 }
 .animation-start .checkbox-ripple {
   transform: scale(2.5, 2.5);
@@ -62,7 +75,7 @@
 }
 .animation-checked-start .checkbox-ripple {
   transform: scale(2.5, 2.5);
-  background-color: #2bbd00;
+  background-color: rgba(43, 175, 43, 0.87);
 }
 .animation-end .checkbox-ripple {
   background-color: #ffffff;

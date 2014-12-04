@@ -26,7 +26,6 @@
   ],
   "dependencies": {
     "jquery": "2.x",
-    "simple-module": "2.x",
-    "font-awesome": "4.x"
+    "simple-module": "2.x"
   }
 }

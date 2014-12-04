@@ -9,18 +9,19 @@ class Checkbox extends SimpleModule
   <div class="simple-checkbox">
     <div class="checkbox-container">
       <div class="checkbox-tick">
-        <i class="fa fa-check"></i>
       </div>
     </div>
+    <div class="checkbox-ripple"></div>
   </div>
   '''
 
-  _animationTpl: '<div class="checkbox-ripple"></div>'
-
   _init: ->
     @checkbox = $(@opts.el).first()
-    throw new Error "Error!Please provide a valid selector" if @checkbox.length == 0
-    return if @checkbox.data "simple-checkbox"
+    throw new Error "simple-checkbox: el option is invalid" if @checkbox.length == 0
+
+    checkbox = @checkbox.data "simple-checkbox"
+    checkbox.destroy() if checkbox
+
     @checked = @checkbox.prop "checked"
     @_render()
 
@@ -38,8 +39,8 @@ class Checkbox extends SimpleModule
         .css('width', @opts.size + 'px')
         .css('font-size', @opts.size + 'px')
 
-    if @opts.animation
-      $(@_animationTpl).insertAfter @el.find('.checkbox-tick')
+    unless @opts.animation
+      @el.find('.checkbox-ripple').remove()
 
     @disable() if @checkbox.prop("disabled")
     @check @checked
@@ -65,6 +66,7 @@ class Checkbox extends SimpleModule
       false
 
     @el.click =>
+      return if @el.hasClass("disabled")
       if @checked
         @check false
         @el.trigger "unchecked"
@@ -80,7 +82,7 @@ class Checkbox extends SimpleModule
     else
       @el.addClass 'animation-checked-start'
 
-    @el.one 'transitionend', =>
+    @el.find('.checkbox-ripple').one 'transitionend', =>
       if @el.hasClass('pressed')
         @el.one 'mouseup', =>
           @_endAnimate()
@@ -91,7 +93,7 @@ class Checkbox extends SimpleModule
   _endAnimate: =>
     @el.addClass('animation-end')
     setTimeout =>
-      @el.one 'transitionend', =>
+      @el.find('.checkbox-ripple').one 'transitionend', =>
         @el.removeClass('animation-start animation-end animation-checked-start')
     , 0
 
