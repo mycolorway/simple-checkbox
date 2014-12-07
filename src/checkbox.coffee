@@ -2,7 +2,7 @@ class Checkbox extends SimpleModule
 
   opts:
     el:""
-    size: null
+    size: 18
     animation: false
 
   _tpl: '''
@@ -34,10 +34,18 @@ class Checkbox extends SimpleModule
       @el.append @checkbox
       @checkbox.addClass 'checkbox-input'
 
-      if @opts.size
-        @el.css('height', @opts.size + 'px')
-        .css('width', @opts.size + 'px')
-        .css('font-size', @opts.size + 'px')
+      @el.css
+        height: @opts.size
+        width: @opts.size
+      @el.find('.checkbox-container')
+        .css
+          border: 0.12 * @opts.size + 'px solid'
+
+      @el.find('.checkbox-tick')
+        .css
+          'border-right': 0.15 * @opts.size + 'px solid'
+          'border-bottom': 0.15 * @opts.size + 'px solid'
+
 
     unless @opts.animation
       @el.find('.checkbox-ripple').remove()
@@ -76,13 +84,9 @@ class Checkbox extends SimpleModule
       false
 
   _startAnimate: ->
-    return if @el.hasClass 'animation-start animation-checked-start animation-end'
-    if @checked
-      @el.addClass 'animation-start'
-    else
-      @el.addClass 'animation-checked-start'
-
-    @el.find('.checkbox-ripple').one 'transitionend', =>
+    return if @el.hasClass 'animation-start animation-end'
+    @el.addClass 'animation-start'
+    @el.find('.checkbox-ripple').one 'animationend webkitAnimationEnd oAnimationEnd' , =>
       if @el.hasClass('pressed')
         @el.one 'mouseup', =>
           @_endAnimate()
@@ -92,10 +96,8 @@ class Checkbox extends SimpleModule
 
   _endAnimate: =>
     @el.addClass('animation-end')
-    setTimeout =>
-      @el.find('.checkbox-ripple').one 'transitionend', =>
-        @el.removeClass('animation-start animation-end animation-checked-start')
-    , 0
+    @el.find('.checkbox-ripple').one 'animationend webkitAnimationEnd oAnimationEnd', =>
+      @el.removeClass('animation-start animation-end')
 
   check: (checked)->
     return @checked if !checked?
