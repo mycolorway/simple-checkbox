@@ -1,9 +1,9 @@
 $size: 18px;
 $border-color: rgba(0, 0, 0, 0.54);
-$checked-color: rgba(43, 175, 43, 0.87);
+$checked-color: rgba(102, 187, 106, 0.87);
 $tick-color: #eeeeee;
 $hover-color: #efefef;
-$disabled-color: #b5b5b5;
+$disabled-color: rgba(0, 0, 0, 0.26);
 
 .simple-checkbox {
   display: inline-block;
@@ -21,19 +21,25 @@ $disabled-color: #b5b5b5;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  transition: 300ms;
+  transition: background 300ms, border 300ms;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   .hover & {
     background-color: $hover-color;
   }
   .disabled & {
-    background-color: $disabled-color!important;
+    background-color: #ffffff;
+    border-color: $disabled-color!important;
     cursor: no-drop;
   }
   .checked & {
     background-color: $checked-color;
     border:none!important;
+  }
+  .disabled.checked & {
+    border:none!important;
+    background-color: $disabled-color;
+    cursor: no-drop;
   }
 }
 
@@ -48,10 +54,10 @@ $disabled-color: #b5b5b5;
     visibility: visible;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    top: 5%;
-    left: 32%;
-    width: 25%;
-    height: 60%;
+    top: 10%;
+    left: 34%;
+    width: 20%;
+    height: 55%;
   }
 }
 .checkbox-input {
@@ -64,39 +70,16 @@ $disabled-color: #b5b5b5;
   height: 100%;
   width: 100%;
   top:-100%;
-  opacity: 0.4;
   position: relative;
   border-radius: 50%;
-  .animation-start & {
-    background: #ededed;
-    animation: checkbox-start 300ms;
-    animation-fill-mode: forwards;
-  }
-  .animation-end & {
-    animation: checkbox-end 600ms;
-    animation-fill-mode: forwards;
-  }
-}
-
-@keyframes checkbox-start {
-  from {
-    opacity: 0;
-    transform: scale(1, 1);
-  }
-
-  to {
+  transition: opacity 350ms, transform 300ms;
+  background: #ededed;
+  opacity: 0;
+  .animation-start &{
     opacity: 1;
     transform: scale(2.5, 2.5);
   }
-}
-
-@keyframes checkbox-end {
-  from {
-    opacity: 1;
-    transform: scale(2.5, 2.5);
-  }
-
-  to {
+  .animation-end &{
     opacity: 0;
     transform: scale(2.5, 2.5);
   }

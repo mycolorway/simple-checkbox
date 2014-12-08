@@ -14,7 +14,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  transition: 300ms;
+  transition: background 300ms, border 300ms;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
@@ -22,12 +22,18 @@
   background-color: #efefef;
 }
 .disabled .checkbox-container {
-  background-color: #b5b5b5 !important;
+  background-color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.26) !important;
   cursor: no-drop;
 }
 .checked .checkbox-container {
-  background-color: rgba(43, 175, 43, 0.87);
+  background-color: rgba(102, 187, 106, 0.87);
   border: none !important;
+}
+.disabled.checked .checkbox-container {
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0.26);
+  cursor: no-drop;
 }
 
 .checkbox-tick {
@@ -42,10 +48,10 @@
   visibility: visible;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  top: 5%;
-  left: 32%;
-  width: 25%;
-  height: 60%;
+  top: 10%;
+  left: 34%;
+  width: 20%;
+  height: 55%;
 }
 
 .checkbox-input {
@@ -58,37 +64,17 @@
   height: 100%;
   width: 100%;
   top: -100%;
-  opacity: 0.4;
   position: relative;
   border-radius: 50%;
+  transition: opacity 350ms, transform 300ms;
+  background: #ededed;
+  opacity: 0;
 }
 .animation-start .checkbox-ripple {
-  background: #ededed;
-  animation: checkbox-start 300ms;
-  animation-fill-mode: forwards;
+  opacity: 1;
+  transform: scale(2.5, 2.5);
 }
 .animation-end .checkbox-ripple {
-  animation: checkbox-end 600ms;
-  animation-fill-mode: forwards;
-}
-
-@keyframes checkbox-start {
-  from {
-    opacity: 0;
-    transform: scale(1, 1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(2.5, 2.5);
-  }
-}
-@keyframes checkbox-end {
-  from {
-    opacity: 1;
-    transform: scale(2.5, 2.5);
-  }
-  to {
-    opacity: 0;
-    transform: scale(2.5, 2.5);
-  }
+  opacity: 0;
+  transform: scale(2.5, 2.5);
 }

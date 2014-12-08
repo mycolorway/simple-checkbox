@@ -43,12 +43,13 @@ class Checkbox extends SimpleModule
 
       @el.find('.checkbox-tick')
         .css
-          'border-right': 0.15 * @opts.size + 'px solid'
-          'border-bottom': 0.15 * @opts.size + 'px solid'
+          'border-right': 0.12 * @opts.size + 'px solid'
+          'border-bottom': 0.12 * @opts.size + 'px solid'
 
-
+    @ripple = @el.find '.checkbox-ripple'
     unless @opts.animation
-      @el.find('.checkbox-ripple').remove()
+      @ripple.remove()
+      @ripple = null
 
     @disable() if @checkbox.prop("disabled")
     @check @checked
@@ -86,17 +87,20 @@ class Checkbox extends SimpleModule
   _startAnimate: ->
     return if @el.hasClass 'animation-start animation-end'
     @el.addClass 'animation-start'
-    @el.find('.checkbox-ripple').one 'animationend webkitAnimationEnd oAnimationEnd' , =>
+    @ripple.on 'transitionend webkitTransitionEnd' , (e) =>
+      return if e.originalEvent.propertyName is 'transform'
+      @ripple.off 'transitionend webkitTransitionEnd'
       if @el.hasClass('pressed')
         @el.one 'mouseup', =>
           @_endAnimate()
         return
       @_endAnimate()
 
-
   _endAnimate: =>
     @el.addClass('animation-end')
-    @el.find('.checkbox-ripple').one 'animationend webkitAnimationEnd oAnimationEnd', =>
+    @ripple.on 'transitionend webkitTransitionEnd', (e) =>
+      return if e.originalEvent.propertyName is 'transform'
+      @ripple.off 'transitionend webkitTransitionEnd'
       @el.removeClass('animation-start animation-end')
 
   check: (checked)->
