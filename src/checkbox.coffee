@@ -11,7 +11,6 @@ class Checkbox extends SimpleModule
       <div class="checkbox-tick">
       </div>
     </div>
-    <div class="checkbox-ripple"></div>
   </div>
   '''
 
@@ -46,11 +45,6 @@ class Checkbox extends SimpleModule
           'border-right': 0.12 * @opts.size + 'px solid'
           'border-bottom': 0.12 * @opts.size + 'px solid'
 
-    @ripple = @el.find '.checkbox-ripple'
-    unless @opts.animation
-      @ripple.remove()
-      @ripple = null
-
     @disable() if @checkbox.prop("disabled")
     @check @checked
 
@@ -69,7 +63,6 @@ class Checkbox extends SimpleModule
 
     @el.mousedown =>
       @el.addClass "pressed"
-      @_startAnimate() if @opts.animation
       $(document).one "mouseup",(e)=>
         @el.removeClass "pressed"
       false
@@ -82,25 +75,24 @@ class Checkbox extends SimpleModule
       else
         @check true
         @el.trigger "checked"
+
+      @_startAnimation() if @opts.animation
       false
 
-  _startAnimate: ->
-    return if @el.hasClass 'animation-start animation-end'
-    @el.addClass 'animation-start animation-switch'
-    @ripple.one SimpleUtil.transitionEnd() , (e) =>
-      @el[0].offsetHeight #force reflow
-      if @el.hasClass('pressed')
-        @el.one 'mouseup', =>
-          @_endAnimate()
-        return
-      @_endAnimate()
+  _startAnimation: ->
+    return if @ripple
+    @ripple = $('<div class="checkbox-ripple">')
+      .one SimpleUtil.transitionEnd(), (e) =>
+        @ripple.remove()
+        @ripple = null
+      .appendTo(@el)
+    @reflow()
+    @ripple.addClass 'transition'
 
-  _endAnimate: ->
-    @el.removeClass 'animation-switch'
-    reflow = @el[0].offsetHeight
-    @el.addClass 'animation-switch animation-end'
-    @ripple.one SimpleUtil.transitionEnd(), (e) =>
-      @el.removeClass 'animation-start animation-end'
+  # force element to reflow, about relow: 
+  # http://blog.letitialew.com/post/30425074101/repaints-and-reflows-manipulating-the-dom-responsibly
+  reflow: () ->
+    @el[0].offsetHeight
 
   check: (checked)->
     return @checked if !checked?
