@@ -66,7 +66,6 @@
   top: -100%;
   position: relative;
   border-radius: 50%;
-  transition: opacity 350ms, transform 300ms;
   background: #ededed;
   opacity: 0;
 }
@@ -77,4 +76,7 @@
 .animation-end .checkbox-ripple {
   opacity: 0;
   transform: scale(2.5, 2.5);
+}
+.animation-switch .checkbox-ripple {
+  transition: opacity 300ms, transform 300ms;
 }

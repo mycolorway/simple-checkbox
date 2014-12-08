@@ -47,11 +47,11 @@ module.exports = (grunt) ->
         objectToExport: 'checkbox'
         globalAlias: 'checkbox'
         deps:
-          'default': ['$', 'SimpleModule']
-          amd: ['jquery', 'simple-module']
-          cjs: ['jquery', 'simple-module']
+          'default': ['$', 'SimpleModule', 'SimpleUtil']
+          amd: ['jquery', 'simple-module', 'simple-util']
+          cjs: ['jquery', 'simple-module', 'simple-util']
           global:
-            items: ['jQuery', 'SimpleModule']
+            items: ['jQuery', 'SimpleModule', 'simple.util']
             prefix: ''
 
     jasmine:

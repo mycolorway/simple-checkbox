@@ -86,22 +86,21 @@ class Checkbox extends SimpleModule
 
   _startAnimate: ->
     return if @el.hasClass 'animation-start animation-end'
-    @el.addClass 'animation-start'
-    @ripple.on 'transitionend webkitTransitionEnd' , (e) =>
-      return if e.originalEvent.propertyName is 'transform'
-      @ripple.off 'transitionend webkitTransitionEnd'
+    @el.addClass 'animation-start animation-switch'
+    @ripple.one SimpleUtil.transitionEnd() , (e) =>
+      @el[0].offsetHeight #force reflow
       if @el.hasClass('pressed')
         @el.one 'mouseup', =>
           @_endAnimate()
         return
       @_endAnimate()
 
-  _endAnimate: =>
-    @el.addClass('animation-end')
-    @ripple.on 'transitionend webkitTransitionEnd', (e) =>
-      return if e.originalEvent.propertyName is 'transform'
-      @ripple.off 'transitionend webkitTransitionEnd'
-      @el.removeClass('animation-start animation-end')
+  _endAnimate: ->
+    @el.removeClass 'animation-switch'
+    reflow = @el[0].offsetHeight
+    @el.addClass 'animation-switch animation-end'
+    @ripple.one SimpleUtil.transitionEnd(), (e) =>
+      @el.removeClass 'animation-start animation-end'
 
   check: (checked)->
     return @checked if !checked?
