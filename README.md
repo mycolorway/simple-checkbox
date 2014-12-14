@@ -1,5 +1,7 @@
 # Simple Checkbox
 
+[![Circle CI](https://circleci.com/gh/mycolorway/simple-checkbox.svg?style=svg)](https://circleci.com/gh/mycolorway/simple-checkbox)
+
 一个简单的Checkbox组件。
 
 依赖项：
