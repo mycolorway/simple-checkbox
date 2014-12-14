@@ -72,6 +72,8 @@ module.exports = (grunt) ->
           vendor: [
             'vendor/bower/jquery/dist/jquery.min.js'
             'vendor/bower/simple-module/lib/module.js'
+            'vendor/bower/simple-util/lib/util.js'
+            'vendor/bower/jasmine-jquery/lib/jasmine-jquery.js'
           ]
 
   grunt.loadNpmTasks 'grunt-contrib-sass'

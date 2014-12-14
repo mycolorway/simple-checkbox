@@ -38,12 +38,12 @@ class Checkbox extends SimpleModule
         width: @opts.size
       @el.find('.checkbox-container')
         .css
-          border: 0.12 * @opts.size + 'px solid'
+          border: 0.10 * @opts.size + 'px solid'
 
       @el.find('.checkbox-tick')
         .css
-          'border-right': 0.12 * @opts.size + 'px solid'
-          'border-bottom': 0.12 * @opts.size + 'px solid'
+          'border-right': 0.14 * @opts.size + 'px solid'
+          'border-bottom': 0.14 * @opts.size + 'px solid'
 
     @disable() if @checkbox.prop("disabled")
     @check @checked

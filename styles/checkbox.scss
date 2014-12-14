@@ -1,16 +1,16 @@
 $size: 18px;
-$border-color: rgba(0, 0, 0, 0.54);
-$checked-color: rgba(102, 187, 106, 0.87);
+$border-color: #b7b7b7;
+$checked-color: rgba(83, 176, 56, 0.87);
 $tick-color: #eeeeee;
 $hover-color: #efefef;
-$disabled-color: rgba(0, 0, 0, 0.26);
+$disabled-color: rgba(53, 53, 53, 0.26);
 
 .simple-checkbox {
   display: inline-block;
-  font-size: $size;
   width: $size;
   height: $size;
   position: relative;
+  vertical-align: middle;
 
   .checkbox-input {
     display: none;
@@ -21,7 +21,7 @@ $disabled-color: rgba(0, 0, 0, 0.26);
     height: 100%;
     cursor: pointer;
     border-color: $border-color!important;
-    border-radius: 12%;
+    border-radius: 20%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -44,8 +44,8 @@ $disabled-color: rgba(0, 0, 0, 0.26);
   }
 
   &.disabled .checkbox-container {
-    background-color: #ffffff;
-    border-color: $disabled-color!important;
+    background-color: $disabled-color;
+    border:none!important;
     cursor: no-drop;
   }
 
@@ -57,8 +57,8 @@ $disabled-color: rgba(0, 0, 0, 0.26);
       visibility: visible;
       -webkit-transform: rotate(45deg);
       transform: rotate(45deg);
-      top: 10%;
-      left: 33%;
+      top: 10.5%;
+      left: 33.5%;
       width: 20%;
       height: 55%;
     }
@@ -80,7 +80,7 @@ $disabled-color: rgba(0, 0, 0, 0.26);
     left: 0;
     border-radius: 50%;
     background: #000000;
-    transition: opacity 500ms, transform 500ms;
+    transition: opacity 700ms, transform 700ms;
     opacity: 0.4;
     transform: scale(0.6, 0.6);
 
