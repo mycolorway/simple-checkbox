@@ -1,6 +1,6 @@
 # Simple Checkbox
 
-[![Circle CI](https://circleci.com/gh/mycolorway/simple-checkbox.svg?style=svg)](https://circleci.com/gh/mycolorway/simple-checkbox)
+[![Circle CI](https://circleci.com/gh/mycolorway/simple-checkbox.png?circle-token=7653cca322502ed59d77d3196a6ee007cf404617)](https://circleci.com/gh/mycolorway/simple-checkbox)
 
 一个简单的Checkbox组件。
 
@@ -42,7 +42,7 @@ checkbox的选择器，必选
 
 __size__
 
-checkbox的大小，如果留空，则为默认的16px
+checkbox的大小，如果留空，则为默认的18px
 
 __animation__
 
