@@ -1,52 +1,81 @@
 (function() {
-  describe("checkbox", function() {
-    var html, opts;
-    html = '<div class="content"> <form> <input type="checkbox" id="checkbox" /> </form> </div>';
-    $(html).appendTo("body");
+  describe('checkbox', function() {
+    var opts;
     opts = {
-      el: "#checkbox"
+      el: '#checkbox'
     };
     beforeEach(function() {
-      $('.content').remove();
-      $(html).appendTo("body");
-      return $('#checkbox').css("display", "inline-block");
+      return $('<input id="checkbox" type="checkbox">').appendTo('body');
     });
-    it("should let input be in div.simple-checkbox when init", function() {
+    afterEach(function() {
+      var checkbox;
+      checkbox = $('#checkbox').data('simple-checkbox');
+      if (checkbox != null) {
+        checkbox.destroy();
+      }
+      return $('#checkbox').remove();
+    });
+    it('should render specific DOM when init', function() {
       simple.checkbox(opts);
-      expect($("div.simple-checkbox").length).toBe(1);
-      expect($('#checkbox').parent().hasClass('simple-checkbox')).toBe(true);
-      return expect($('#checkbox').css('display')).toBe("none");
+      expect($('div.simple-checkbox')).toExist();
+      expect($('.simple-checkbox>.checkbox-container>.checkbox-tick')).toExist();
+      expect($('.simple-checkbox #checkbox')).toExist();
+      return expect($('#checkbox').css('display')).toBe('none');
     });
-    it("should throw an exception when opts is not provided", function() {
+    it('should change size when size opt provide', function() {
+      var newOpts;
+      newOpts = $.extend(opts, {
+        size: 25
+      });
+      simple.checkbox(newOpts);
+      expect($('.simple-checkbox').height()).toBe(25);
+      return expect($('.simple-checkbox').width()).toBe(25);
+    });
+    it('should throw an exception when opts is not provided', function() {
       var testException;
       testException = function() {
         return simple.checkbox();
       };
       return expect(testException).toThrow();
     });
-    it("should change class, when different function invoke", function() {
-      var checkbox;
+    it('should change class, when different function invoke', function() {
+      var $checkbox, checkbox;
       checkbox = simple.checkbox(opts);
       checkbox.check(true);
-      expect($('#checkbox').parent().hasClass('checked')).toBe(true);
+      $checkbox = $('.simple-checkbox');
+      expect($checkbox).toHaveClass('checked');
       checkbox.check(false);
-      expect($('#checkbox').parent().hasClass('checked')).toBe(false);
+      expect($checkbox).not.toHaveClass('checked');
       checkbox.disable();
-      expect($('#checkbox').parent().hasClass('disabled')).toBe(true);
+      expect($checkbox).toHaveClass('disabled');
       checkbox.enable();
-      return expect($('#checkbox').parent().hasClass('disabled')).toBe(false);
+      return expect($checkbox).not.toHaveClass('disabled');
     });
-    it("should change class, then different event triggered", function() {
-      var checkbox;
+    it('should change class, then different event triggered', function() {
+      var $checkbox, checkbox;
       checkbox = simple.checkbox(opts);
-      $('.simple-checkbox').trigger("click");
-      expect($('#checkbox').parent().hasClass('checked')).toBe(true);
-      $('.simple-checkbox').trigger("mouseover");
-      expect($('#checkbox').parent().hasClass('hover')).toBe(true);
-      $('.simple-checkbox').trigger("mousedown");
-      return expect($('#checkbox').parent().hasClass('pressed')).toBe(true);
+      $checkbox = $('.simple-checkbox');
+      $checkbox.trigger('click');
+      expect($checkbox).toHaveClass('checked');
+      $checkbox.trigger('mouseover');
+      expect($checkbox).toHaveClass('hover');
+      $checkbox.trigger('mousedown');
+      return expect($checkbox).toHaveClass('pressed');
     });
-    return it("should be destroyed when invoke destroy method", function() {
+    it('should animate when click and animate optioned', function() {
+      var $checkbox, checkbox, newOpts;
+      newOpts = $.extend(opts, {
+        animation: true
+      });
+      checkbox = simple.checkbox(newOpts);
+      $checkbox = $('.simple-checkbox');
+      $checkbox.trigger('click');
+      expect($checkbox.find('.checkbox-ripple')).toExist();
+      expect($checkbox.find('.checkbox-ripple')).toHaveClass('transition');
+      $checkbox.find('.checkbox-ripple').trigger(simple.util.transitionEnd());
+      return expect($checkbox.find('.checkbox-ripple')).not.toExist();
+    });
+    return it('should be destroyed when invoke destroy method', function() {
       var checkbox;
       checkbox = simple.checkbox(opts);
       checkbox.destroy();

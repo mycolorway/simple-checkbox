@@ -1,29 +1,77 @@
 .simple-checkbox {
-  width: 16px;
-  height: 16px;
-  background-image: url(../image/checkbox.png);
   display: inline-block;
-  background-repeat: no-repeat;
-  background-position: 0 0;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  vertical-align: middle;
 }
-.simple-checkbox.hover {
-  background-position: 0 -20px;
+.simple-checkbox .checkbox-input {
+  display: none;
 }
-.simple-checkbox.pressed {
-  background-position: 0 -40px;
+.simple-checkbox .checkbox-container {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border-color: #b7b7b7 !important;
+  border-radius: 20%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  transition: background 300ms, border 300ms;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
-.simple-checkbox.checked {
-  background-position: 0 -60px;
+.simple-checkbox .checkbox-container .checkbox-tick {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border-color: #eeeeee !important;
 }
-.simple-checkbox.checked.hover {
-  background-position: 0 -80px;
+.simple-checkbox.hover .checkbox-container {
+  background-color: #efefef;
 }
-.simple-checkbox.checked.pressed {
-  background-position: 0 -100px;
+.simple-checkbox.disabled .checkbox-container {
+  background-color: rgba(53, 53, 53, 0.26);
+  border: none !important;
+  cursor: no-drop;
 }
-.simple-checkbox.disabled {
-  background-position: 0 -120px;
+.simple-checkbox.checked .checkbox-container {
+  background-color: rgba(83, 176, 56, 0.87);
+  border: none !important;
 }
-.simple-checkbox.checked.disabled {
-  background-position: 0 -140px;
+.simple-checkbox.checked .checkbox-container .checkbox-tick {
+  visibility: visible;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 10.5%;
+  left: 33.5%;
+  width: 20%;
+  height: 55%;
+}
+.simple-checkbox.disabled.checked .checkbox-container {
+  border: none !important;
+  background-color: rgba(53, 53, 53, 0.26);
+  cursor: no-drop;
+}
+.simple-checkbox .checkbox-ripple {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: #000000;
+  transition: opacity 700ms, transform 700ms;
+  -webkit-transition: opacity 700ms, -webkit-transform 700ms;
+  opacity: 0.4;
+  transform: scale(0.6, 0.6);
+  -webkit-transform: scale(0.6, 0.6);
+}
+.simple-checkbox .checkbox-ripple.transition {
+  transform: scale(2.5, 2.5);
+  -webkit-transform: scale(2.5, 2.5);
+  opacity: 0;
 }

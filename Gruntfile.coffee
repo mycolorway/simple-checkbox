@@ -47,11 +47,11 @@ module.exports = (grunt) ->
         objectToExport: 'checkbox'
         globalAlias: 'checkbox'
         deps:
-          'default': ['$', 'SimpleModule']
-          amd: ['jquery', 'simple-module']
-          cjs: ['jquery', 'simple-module']
+          'default': ['$', 'SimpleModule', 'SimpleUtil']
+          amd: ['jquery', 'simple-module', 'simple-util']
+          cjs: ['jquery', 'simple-module', 'simple-util']
           global:
-            items: ['jQuery', 'SimpleModule']
+            items: ['jQuery', 'SimpleModule', 'simple.util']
             prefix: ''
 
     jasmine:
@@ -72,6 +72,8 @@ module.exports = (grunt) ->
           vendor: [
             'vendor/bower/jquery/dist/jquery.min.js'
             'vendor/bower/simple-module/lib/module.js'
+            'vendor/bower/simple-util/lib/util.js'
+            'vendor/bower/jasmine-jquery/lib/jasmine-jquery.js'
           ]
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
@@ -81,4 +83,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-umd'
 
   grunt.registerTask 'default', ['sass', 'coffee', 'umd', 'jasmine:test:build', 'watch']
-  grunt.registerTask 'test', ['sass', 'coffee', 'jasmine:terminal']
+  grunt.registerTask 'test', ['sass', 'coffee', 'umd', 'jasmine:test']

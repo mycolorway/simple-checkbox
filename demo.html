@@ -2,46 +2,64 @@
 <html>
 <head>
   <title>Simple Checkbox Demo</title>
-  <meta charset="utf-8"/>
-
-  <link media="all" rel="stylesheet" type="text/css" href="styles/checkbox.css"/>
-  <style type="text/css" media="all">
-    body {
-      margin: 0;
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="styles/checkbox.css"/>
+  <style type="text/css">
+    html, body {
       padding: 0;
+      margin: 0;
+      font: 14px/1.6 "Lucida Grande", "Helvetica", sans-serif;
+      color: #333;
     }
-    .content {
-      width: 850px;
+    .wrapper {
+      max-width: 600px;
       margin: 0 auto;
+      color: rgb(113, 113, 113);
     }
-    input[type=checkbox] {
-      display: block;
+    header {
+      margin: 50px 0;
+      text-align: center;
+    }
+    section {
       margin: 30px 0;
     }
   </style>
 </head>
+
 <body>
-<div class="content">
-  <h1>Simple Checkbox Demo</h1>
-  <form>
-    <p>选中的checkbox <input type="checkbox" checked> </p>
-    <p>禁用的checkbox <input type="checkbox" disabled></p>
-    <p>同时被禁用和选中的checkbox <input type="checkbox" checked disabled></p>
-    <p>一般的checkbox <input type="checkbox"></p>
-  </form>
+
+<div class="wrapper">
+  <header>
+    <h1>Simple Checkbox</h1>
+  </header>
+  <section>
+    <p><input type="checkbox"/> 普通的Checkbox </p>
+    <p><input type="checkbox" disabled/> 被禁用的Checkbox </p>
+    <p><input type="checkbox" checked/> 被选中的Checkbox </p>
+    <p><input type="checkbox" checked disabled/> 被选中和禁用的Checkbox </p>
+    <p><input type="checkbox" data-size="25"/> 更大的Checkbox </p>
+    <p><input type="checkbox" data-size="25" data-animation="true"/> 带有动画的Checkbox </p>
+
+  </section>
 </div>
-<script src="vendor/bower/jquery/dist/jquery.min.js"></script>
-<script src="vendor/bower/simple-module/lib/module.js"></script>
+<script type="text/javascript" src="vendor/bower/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="vendor/bower/simple-module/lib/module.js"></script>
+<script type="text/javascript" src="vendor/bower/simple-util/lib/util.js"></script>
 <script type="text/javascript" src="lib/checkbox.js"></script>
 <script type="text/javascript">
-  $(function () {
-    $(document).ready(function(){
-      var cbs = [];
-      $('input').each(function () {
-        cbs.push(simple.checkbox({el: this}));
+  $(document).ready(function(){
+    $('[type=checkbox]').each(function(index, ele) {
+      $ele = $(ele);
+      simple.checkbox({
+        el: $ele,
+        size: $ele.data('size'),
+        animation: $ele.data('animation')
       });
     });
   });
 </script>
 </body>
+
 </html>
+
+

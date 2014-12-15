@@ -2,11 +2,25 @@ class Checkbox extends SimpleModule
 
   opts:
     el:""
+    size: 18
+    animation: false
+
+  _tpl: '''
+  <div class="simple-checkbox">
+    <div class="checkbox-container">
+      <div class="checkbox-tick">
+      </div>
+    </div>
+  </div>
+  '''
 
   _init: ->
     @checkbox = $(@opts.el).first()
-    throw new Error "Error!Please provide a valid selector" if @checkbox.length == 0
-    return if @checkbox.data "simple-checkbox"
+    throw new Error "simple-checkbox: el option is invalid" if @checkbox.length == 0
+
+    checkbox = @checkbox.data "simple-checkbox"
+    checkbox.destroy() if checkbox
+
     @checked = @checkbox.prop "checked"
     @_render()
 
@@ -15,8 +29,21 @@ class Checkbox extends SimpleModule
 
     @el = @checkbox.parent '.simple-checkbox'
     if @el.length < 1
-      @el = $('<div class="simple-checkbox"></div>').insertAfter @checkbox
+      @el = $(@_tpl).insertAfter @checkbox
       @el.append @checkbox
+      @checkbox.addClass 'checkbox-input'
+
+      @el.css
+        height: @opts.size
+        width: @opts.size
+      @el.find('.checkbox-container')
+        .css
+          border: 0.10 * @opts.size + 'px solid'
+
+      @el.find('.checkbox-tick')
+        .css
+          'border-right': 0.14 * @opts.size + 'px solid'
+          'border-bottom': 0.14 * @opts.size + 'px solid'
 
     @disable() if @checkbox.prop("disabled")
     @check @checked
@@ -48,7 +75,24 @@ class Checkbox extends SimpleModule
       else
         @check true
         @el.trigger "checked"
+
+      @_startAnimation() if @opts.animation
       false
+
+  _startAnimation: ->
+    return if @ripple
+    @ripple = $('<div class="checkbox-ripple">')
+      .one SimpleUtil.transitionEnd(), (e) =>
+        @ripple.remove()
+        @ripple = null
+      .prependTo(@el)
+    @reflow()
+    @ripple.addClass 'transition'
+
+  # force element to reflow, about relow: 
+  # http://blog.letitialew.com/post/30425074101/repaints-and-reflows-manipulating-the-dom-responsibly
+  reflow: () ->
+    @el[0].offsetHeight
 
   check: (checked)->
     return @checked if !checked?

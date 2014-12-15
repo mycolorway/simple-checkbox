@@ -1,67 +1,77 @@
-describe "checkbox", ->
-
-  html='<div class="content">
-          <form>
-            <input type="checkbox" id="checkbox" />
-          </form>
-        </div>'
-  $(html).appendTo "body"
-
+describe 'checkbox', ->
   opts=
-    el:"#checkbox"
-
-
+    el:'#checkbox'
 
   beforeEach ->
-    $('.content').remove()
-    $(html).appendTo "body"
-    $('#checkbox').css("display","inline-block")
+    $('<input id="checkbox" type="checkbox">').appendTo 'body'
 
-  it "should let input be in div.simple-checkbox when init", ->
+  afterEach ->
+    checkbox = $('#checkbox').data 'simple-checkbox'
+    checkbox?.destroy()
+    $('#checkbox').remove()
+
+  it 'should render specific DOM when init', ->
     simple.checkbox opts
-    expect($("div.simple-checkbox").length).toBe(1)
-    expect($('#checkbox').parent().hasClass('simple-checkbox')).toBe(true)
-    expect($('#checkbox').css('display')).toBe("none")
+    expect($('div.simple-checkbox')).toExist()
+    expect($('.simple-checkbox>.checkbox-container>.checkbox-tick')).toExist()
+    expect($('.simple-checkbox #checkbox')).toExist()
+    expect($('#checkbox').css('display')).toBe('none')
 
+  it 'should change size when size opt provide', ->
+    newOpts = $.extend(opts, {size: 25})
+    simple.checkbox newOpts
+    expect($('.simple-checkbox').height()).toBe(25)
+    expect($('.simple-checkbox').width()).toBe(25)
 
-  it "should throw an exception when opts is not provided", ->
+  it 'should throw an exception when opts is not provided', ->
     testException = ->
       simple.checkbox()
     expect(testException).toThrow()
 
-  it "should change class, when different function invoke", ->
+  it 'should change class, when different function invoke', ->
     checkbox = simple.checkbox opts
     checkbox.check true
-    expect($('#checkbox').parent().hasClass('checked')).toBe(true)
+    $checkbox = $('.simple-checkbox')
+    expect($checkbox).toHaveClass('checked')
 
     checkbox.check false
-    expect($('#checkbox').parent().hasClass('checked')).toBe(false)
+    expect($checkbox).not.toHaveClass('checked')
 
     checkbox.disable()
-    expect($('#checkbox').parent().hasClass('disabled')).toBe(true)
+    expect($checkbox).toHaveClass('disabled')
 
     checkbox.enable()
-    expect($('#checkbox').parent().hasClass('disabled')).toBe(false)
+    expect($checkbox).not.toHaveClass('disabled')
 
-  it "should change class, then different event triggered", ->
+  it 'should change class, then different event triggered', ->
     checkbox = simple.checkbox opts
+    $checkbox = $('.simple-checkbox')
+    $checkbox.trigger 'click'
+    expect($checkbox).toHaveClass('checked')
 
-    $('.simple-checkbox').trigger "click"
-    expect($('#checkbox').parent().hasClass('checked')).toBe(true)
+    $checkbox.trigger 'mouseover'
+    expect($checkbox).toHaveClass('hover')
 
-    $('.simple-checkbox').trigger "mouseover"
-    expect($('#checkbox').parent().hasClass('hover')).toBe(true)
+    $checkbox.trigger 'mousedown'
+    expect($checkbox).toHaveClass('pressed')
 
-    $('.simple-checkbox').trigger "mousedown"
-    expect($('#checkbox').parent().hasClass('pressed')).toBe(true)
+  it 'should animate when click and animate optioned', ->
+    newOpts = $.extend(opts, {animation: true})
+    checkbox = simple.checkbox newOpts
+    $checkbox = $('.simple-checkbox')
 
-  it "should be destroyed when invoke destroy method", ->
+    $checkbox.trigger 'click'
+    expect($checkbox.find('.checkbox-ripple')).toExist()
+    expect($checkbox.find('.checkbox-ripple')).toHaveClass('transition')
+
+    $checkbox.find('.checkbox-ripple').trigger simple.util.transitionEnd()
+    expect($checkbox.find('.checkbox-ripple')).not.toExist()
+
+  it 'should be destroyed when invoke destroy method', ->
     checkbox = simple.checkbox opts
     checkbox.destroy()
     expect($('.simple-checkbox').length).toBe(0)
     expect($('#checkbox').length).toBe(1)
-
-
 
 
 
