@@ -56,7 +56,6 @@
   cursor: no-drop;
 }
 .simple-checkbox .checkbox-ripple {
-  z-index: -1;
   display: block;
   height: 100%;
   width: 100%;
@@ -66,10 +65,13 @@
   border-radius: 50%;
   background: #000000;
   transition: opacity 700ms, transform 700ms;
+  -webkit-transition: opacity 700ms, -webkit-transform 700ms;
   opacity: 0.4;
   transform: scale(0.6, 0.6);
+  -webkit-transform: scale(0.6, 0.6);
 }
 .simple-checkbox .checkbox-ripple.transition {
   transform: scale(2.5, 2.5);
+  -webkit-transform: scale(2.5, 2.5);
   opacity: 0;
 }

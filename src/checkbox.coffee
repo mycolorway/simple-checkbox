@@ -85,7 +85,7 @@ class Checkbox extends SimpleModule
       .one SimpleUtil.transitionEnd(), (e) =>
         @ripple.remove()
         @ripple = null
-      .appendTo(@el)
+      .prependTo(@el)
     @reflow()
     @ripple.addClass 'transition'
 
