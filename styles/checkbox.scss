@@ -46,7 +46,7 @@ $disabled-color: rgba(53, 53, 53, 0.26);
   &.disabled .checkbox-container {
     background-color: $disabled-color;
     border:none!important;
-    cursor: no-drop;
+    cursor: default;
   }
 
   &.checked .checkbox-container {
@@ -67,7 +67,7 @@ $disabled-color: rgba(53, 53, 53, 0.26);
   &.disabled.checked .checkbox-container {
     border:none!important;
     background-color: $disabled-color;
-    cursor: no-drop;
+    cursor: default;
   }
 
   .checkbox-ripple {
