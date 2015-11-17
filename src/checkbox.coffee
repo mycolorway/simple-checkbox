@@ -4,6 +4,7 @@ class Checkbox extends SimpleModule
     el:""
     size: 18
     animation: false
+    type: 'square' # or 'circle'
 
   _tpl: '''
   <div class="simple-checkbox">
@@ -44,6 +45,8 @@ class Checkbox extends SimpleModule
         .css
           'border-right': 0.14 * @opts.size + 'px solid'
           'border-bottom': 0.14 * @opts.size + 'px solid'
+
+    @el.addClass 'circle'  if @opts.type is 'circle'
 
     @disable() if @checkbox.prop("disabled")
     @check @checked
@@ -89,7 +92,7 @@ class Checkbox extends SimpleModule
     @reflow()
     @ripple.addClass 'transition'
 
-  # force element to reflow, about relow: 
+  # force element to reflow, about relow:
   # http://blog.letitialew.com/post/30425074101/repaints-and-reflows-manipulating-the-dom-responsibly
   reflow: () ->
     @el[0].offsetHeight

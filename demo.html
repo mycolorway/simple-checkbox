@@ -37,6 +37,7 @@
     <p><input type="checkbox" disabled/> 被禁用的Checkbox </p>
     <p><input type="checkbox" checked/> 被选中的Checkbox </p>
     <p><input type="checkbox" checked disabled/> 被选中和禁用的Checkbox </p>
+    <p><input type="checkbox" data-size="20" data-type="circle"/> 圆形的Checkbox </p>
     <p><input type="checkbox" data-size="25"/> 更大的Checkbox </p>
     <p><input type="checkbox" data-size="25" data-animation="true"/> 带有动画的Checkbox </p>
 
@@ -53,7 +54,8 @@
       simple.checkbox({
         el: $ele,
         size: $ele.data('size'),
-        animation: $ele.data('animation')
+        animation: $ele.data('animation'),
+        type: $ele.data('type')
       });
     });
   });

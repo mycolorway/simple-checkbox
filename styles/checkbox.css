@@ -55,6 +55,14 @@
   background-color: rgba(53, 53, 53, 0.26);
   cursor: default;
 }
+.simple-checkbox.circle .checkbox-container {
+  border-radius: 50%;
+}
+.simple-checkbox.circle .checkbox-container .checkbox-tick {
+  -webkit-transform: rotate(45deg) scale(0.8);
+  transform: rotate(45deg) scale(0.8);
+  top: 15%;
+}
 .simple-checkbox .checkbox-ripple {
   display: block;
   height: 100%;
