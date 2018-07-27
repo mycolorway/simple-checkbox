@@ -1,7 +1,6 @@
 GEM
-  remote: http://ruby.taobao.org/
   specs:
-    sass (3.4.5)
+    sass (3.4.25)
 
 PLATFORMS
   ruby
@@ -10,4 +9,4 @@ DEPENDENCIES
   sass
 
 BUNDLED WITH
-   1.10.6
+   1.14.6

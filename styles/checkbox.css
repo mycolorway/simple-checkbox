@@ -12,7 +12,7 @@
   width: 100%;
   height: 100%;
   cursor: pointer;
-  border-color: #b7b7b7 !important;
+  border-color: #CCCCCC !important;
   border-radius: 20%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -27,18 +27,18 @@
   position: absolute;
   width: inherit;
   height: inherit;
-  border-color: #eeeeee !important;
+  border-color: #FFFFFF !important;
 }
 .simple-checkbox.hover .checkbox-container {
-  background-color: #efefef;
+  background-color: #EFEFEF;
 }
 .simple-checkbox.disabled .checkbox-container {
-  background-color: rgba(53, 53, 53, 0.26);
+  background-color: #EFEFEF;
   border: none !important;
   cursor: default;
 }
 .simple-checkbox.checked .checkbox-container {
-  background-color: rgba(83, 176, 56, 0.87);
+  background-color: #2FB536;
   border: none !important;
 }
 .simple-checkbox.checked .checkbox-container .checkbox-tick {
@@ -52,7 +52,7 @@
 }
 .simple-checkbox.disabled.checked .checkbox-container {
   border: none !important;
-  background-color: rgba(53, 53, 53, 0.26);
+  background-color: #EFEFEF;
   cursor: default;
 }
 .simple-checkbox.circle .checkbox-container {
