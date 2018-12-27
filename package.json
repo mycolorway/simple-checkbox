@@ -2,6 +2,7 @@
   "name": "simple-checkbox",
   "version": "2.1.1",
   "description": "simple checkbox component",
+  "main": "lib/checkbox.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:mycolorway/simple-checkbox.git"
