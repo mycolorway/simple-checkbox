@@ -1,6 +1,6 @@
 {
   "name": "simple-checkbox",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "simple checkbox component",
   "main": "lib/checkbox.js",
   "repository": {
